@@ -9,59 +9,69 @@ describe('Queue', () => {
   test('length', () => {
     expect(queue.length).toEqual(0)
 
-    queue.add(1)
+    queue.enqueue(1)
     expect(queue.length).toEqual(1)
 
-    queue.add(2)
+    queue.enqueue(2)
     expect(queue.length).toEqual(2)
 
-    queue.add(3)
+    queue.enqueue(3)
     expect(queue.length).toEqual(3)
   })
 
-  test('add', () => {
+  test('isEmpty', () => {
+    expect(queue.isEmpty()).toEqual(true)
+
+    queue.enqueue(1)
+    expect(queue.isEmpty()).toEqual(false)
+
+    queue.dequeue()
+    expect(queue.isEmpty()).toEqual(true)
+  })
+
+  test('enqueue', () => {
     expect(queue.length).toEqual(0)
 
     const value = 'foo'
-    queue.add(value)
+    queue.enqueue(value)
 
     expect(queue.length).toEqual(1)
     expect(queue.peek()).toEqual(value)
   })
 
-  test('remove', () => {
-    queue.add(1)
-    queue.add(2)
-    queue.add(3)
+  test('dequeue', () => {
+    queue.enqueue(1)
+    queue.enqueue(2)
+    queue.enqueue(3)
 
     expect(queue.length).toEqual(3)
 
-    const first = queue.remove()
+    const first = queue.dequeue()
     expect(first).toEqual(1)
     expect(queue.length).toEqual(2)
 
-    const second = queue.remove()
+    const second = queue.dequeue()
     expect(second).toEqual(2)
     expect(queue.length).toEqual(1)
 
-    const third = queue.remove()
+    const third = queue.dequeue()
     expect(third).toEqual(3)
     expect(queue.length).toEqual(0)
 
-    const fourth = queue.remove()
+    const fourth = queue.dequeue()
     expect(fourth).toEqual(undefined)
   })
 
   test('peek', () => {
-    queue.add(1)
-    queue.add(2)
+    queue.enqueue(1)
+    queue.enqueue(2)
 
     expect(queue.peek()).toEqual(1)
 
-    queue.remove()
+    queue.dequeue()
     expect(queue.peek()).toEqual(2)
 
-    queue.remove()
+    queue.dequeue()
     expect(queue.peek()).toEqual(undefined)
   })
 })

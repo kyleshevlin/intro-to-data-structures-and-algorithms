@@ -2,10 +2,10 @@ function createQueue() {
   const queue = []
 
   return {
-    add(x) {
+    enqueue(x) {
       queue.unshift(x)
     },
-    remove() {
+    dequeue() {
       if (queue.length === 0) {
         return undefined
       }
@@ -19,6 +19,9 @@ function createQueue() {
     },
     get length() {
       return queue.length
+    },
+    isEmpty() {
+      return queue.length === 0
     }
   }
 }

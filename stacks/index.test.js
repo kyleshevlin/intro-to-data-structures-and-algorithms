@@ -9,59 +9,61 @@ describe('Stacks', () => {
   test('length', () => {
     expect(stack.length).toEqual(0)
 
-    stack.add(1)
+    stack.push(1)
     expect(stack.length).toEqual(1)
 
-    stack.add(2)
+    stack.push(2)
     expect(stack.length).toEqual(2)
 
-    stack.add(3)
+    stack.push(3)
     expect(stack.length).toEqual(3)
   })
 
-  test('add', () => {
+  test('isEmpty', () => {})
+
+  test('push', () => {
     expect(stack.length).toEqual(0)
 
     const value = 'foo'
-    stack.add(value)
+    stack.push(value)
 
     expect(stack.length).toEqual(1)
     expect(stack.peek()).toEqual(value)
   })
 
-  test('remove', () => {
-    stack.add(1)
-    stack.add(2)
-    stack.add(3)
+  test('pop', () => {
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
 
     expect(stack.length).toEqual(3)
 
-    const first = stack.remove()
+    const first = stack.pop()
     expect(first).toEqual(3)
     expect(stack.length).toEqual(2)
 
-    const second = stack.remove()
+    const second = stack.pop()
     expect(second).toEqual(2)
     expect(stack.length).toEqual(1)
 
-    const third = stack.remove()
+    const third = stack.pop()
     expect(third).toEqual(1)
     expect(stack.length).toEqual(0)
 
-    const fourth = stack.remove()
+    const fourth = stack.pop()
     expect(fourth).toEqual(undefined)
   })
 
   test('peek', () => {
-    stack.add(1)
-    stack.add(2)
+    stack.push(1)
+    stack.push(2)
 
     expect(stack.peek()).toEqual(2)
 
-    stack.remove()
+    stack.pop()
     expect(stack.peek()).toEqual(1)
 
-    stack.remove()
+    stack.pop()
     expect(stack.peek()).toEqual(undefined)
   })
 })

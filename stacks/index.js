@@ -2,10 +2,10 @@ function createStack() {
   const stack = []
 
   return {
-    add(x) {
+    push(x) {
       stack.push(x)
     },
-    remove() {
+    pop() {
       if (stack.length === 0) {
         return undefined
       }
@@ -19,6 +19,9 @@ function createStack() {
     },
     get length() {
       return stack.length
+    },
+    isEmpty() {
+      return stack.length === 0
     }
   }
 }
