@@ -5,4 +5,8 @@ describe('Linked List', () => {
   beforeEach(() => {
     linkedList = createLinkedList()
   })
+
+  test('appeaseJestForNow', () => {
+    expect(true).toBe(true)
+  })
 })
