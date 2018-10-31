@@ -1,4 +1,31 @@
-const { createGraph } = require('./index')
+const { createGraph, createNode } = require('./index')
+
+describe('Node', () => {
+  let node
+  beforeEach(() => {
+    node = createNode('a')
+  })
+
+  test('existence', () => {
+    expect(node).toBeDefined()
+  })
+
+  test('key', () => {
+    expect(node.key).toEqual('a')
+  })
+
+  test('children', () => {
+    expect(node.children).toBeDefined()
+    expect(Array.isArray(node.children))
+  })
+
+  test('addChild', () => {
+    node.addChild('b')
+
+    expect(node.children.length).toEqual(1)
+    expect(node.children.includes('b')).toBe(true)
+  })
+})
 
 describe('Graph', () => {
   let graph
@@ -6,50 +33,132 @@ describe('Graph', () => {
     graph = createGraph()
   })
 
-  test('addNode', () => {
-    expect(graph.nodes.includes('A')).toEqual(false)
-    graph.addNode('A')
-    expect(graph.nodes.includes('A')).toEqual(true)
+  test('existence', () => {
+    expect(graph).toBeDefined()
   })
 
-  test('addEdge', () => {
-    graph.addNode('a')
-    graph.addNode('b')
-    graph.addEdge('a', 'b')
+  test('directed', () => {
+    expect(graph.directed).toBe(false)
 
-    expect(graph.getNode('a').includes('b')).toEqual(true)
-    expect(graph.getNode('b').includes('a')).toEqual(true)
+    graph = createGraph(true)
+    expect(graph.directed).toBe(true)
+  })
+
+  test('addNode', () => {
+    graph.addNode('a')
+
+    expect(graph.nodes.map(n => n.key).includes('a')).toBe(true)
   })
 
   test('getNode', () => {
     graph.addNode('a')
-    graph.addNode('b')
-    graph.addNode('c')
-    graph.addEdge('a', 'b')
-    graph.addEdge('a', 'c')
 
-    const nodeA = graph.getNode('a')
-    expect(nodeA.includes('b')).toEqual(true)
-    expect(nodeA.includes('c')).toEqual(true)
+    expect(graph.getNode('a')).toBeDefined()
   })
 
-  test('print', () => {
-    const nodes = ['a', 'b', 'c', 'd', 'e']
-    nodes.forEach(node => {
-      graph.addNode(node)
+  describe('addEdge', () => {
+    test('undirected', () => {
+      graph.addNode('a')
+      graph.addNode('b')
+      graph.addEdge('a', 'b')
+
+      expect(
+        graph
+          .getNode('a')
+          .children.map(node => node.key)
+          .includes('b')
+      ).toBe(true)
+      expect(
+        graph
+          .getNode('b')
+          .children.map(node => node.key)
+          .includes('a')
+      ).toBe(true)
     })
+
+    test('directed', () => {
+      graph = createGraph(true)
+      graph.addNode('a')
+      graph.addNode('b')
+      graph.addEdge('a', 'b')
+
+      expect(
+        graph
+          .getNode('a')
+          .children.map(node => node.key)
+          .includes('b')
+      ).toBe(true)
+      expect(
+        graph
+          .getNode('b')
+          .children.map(node => node.key)
+          .includes('a')
+      ).toBe(false)
+    })
+  })
+
+  test('nodes', () => {
+    graph.addNode('a')
+    graph.addNode('b')
+
+    expect(graph.nodes).toBeDefined()
+    expect(graph.nodes.length).toEqual(2)
+  })
+
+  test('edges', () => {
+    graph.addNode('a')
+    graph.addNode('b')
+    graph.addNode('c')
+
     graph.addEdge('a', 'b')
     graph.addEdge('a', 'c')
-    graph.addEdge('a', 'e')
     graph.addEdge('b', 'c')
-    graph.addEdge('b', 'd')
 
-    expect(graph.print()).toEqual(
-      `a -> b c e
-b -> a c d
-c -> a b
-d -> b
-e -> a`
-    )
+    expect(graph.edges).toBeDefined()
+    expect(graph.edges.length).toEqual(3)
+  })
+
+  describe('print', () => {
+    test('undirected', () => {
+      const nodes = ['a', 'b', 'c', 'd', 'e']
+      nodes.forEach(node => {
+        graph.addNode(node)
+      })
+
+      const edges = [['a', 'b'], ['a', 'c'], ['a', 'e'], ['b', 'd'], ['c', 'd']]
+      edges.forEach(edge => {
+        graph.addEdge(...edge)
+      })
+
+      expect(graph.print()).toEqual(
+        `a => b c e
+b => a d
+c => a d
+d => b c
+e => a`
+      )
+    })
+
+    test('directed', () => {
+      graph = createGraph(true)
+
+      const nodes = ['a', 'b', 'c', 'd', 'e']
+      nodes.forEach(node => {
+        graph.addNode(node)
+      })
+
+      const edges = [['a', 'b'], ['a', 'c'], ['a', 'e'], ['b', 'd'], ['c', 'd']]
+      edges.forEach(edge => {
+        graph.addEdge(...edge)
+      })
+
+      expect(graph.print()).toEqual(
+        `a => b c e
+b => d
+c => d
+d
+e`
+      )
+    })
   })
 })

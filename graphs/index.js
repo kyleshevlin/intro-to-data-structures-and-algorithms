@@ -1,28 +1,55 @@
-function createGraph() {
-  const graph = new Map()
+function createNode(key) {
+  const children = []
+  return {
+    key,
+    children,
+    addChild(node) {
+      children.push(node)
+    }
+  }
+}
+
+function createGraph(directed = false) {
+  const nodes = []
+  const edges = []
 
   return {
-    get nodes() {
-      return Array.from(graph.keys())
+    directed,
+    nodes,
+    addNode(key) {
+      nodes.push(createNode(key))
     },
-    getNode(node) {
-      return graph.get(node)
+    getNode(key) {
+      return nodes.find(n => n.key === key)
     },
-    addNode(node) {
-      graph.set(node, [])
-    },
-    addEdge(node1, node2) {
-      if (graph.has(node1) && graph.has(node2)) {
-        graph.get(node1).push(node2)
-        graph.get(node2).push(node1)
+    edges,
+    addEdge(node1Key, node2Key) {
+      const node1 = this.getNode(node1Key)
+      const node2 = this.getNode(node2Key)
+
+      node1.addChild(node2)
+
+      if (!directed) {
+        node2.addChild(node1)
       }
+
+      edges.push(`${node1Key}${node2Key}`)
     },
     print() {
-      return Array.from(graph.entries())
-        .map(([key, values]) => `${key} -> ${values.join(' ')}`)
+      return nodes
+        .map(({ children, key }) => {
+          let result = `${key}`
+
+          if (children.length) {
+            result += ` => ${children.map(node => node.key).join(' ')}`
+          }
+
+          return result
+        })
         .join('\n')
     }
   }
 }
 
+exports.createNode = createNode
 exports.createGraph = createGraph
