@@ -1,5 +1,6 @@
 function createNode(key) {
   const children = []
+
   return {
     key,
     children,
