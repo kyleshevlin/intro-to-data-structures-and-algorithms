@@ -1,3 +1,5 @@
+const { createQueue } = require('../queues')
+
 function createNode(key) {
   const children = []
 
@@ -17,13 +19,16 @@ function createGraph(directed = false) {
   return {
     directed,
     nodes,
+    edges,
+
     addNode(key) {
       nodes.push(createNode(key))
     },
+
     getNode(key) {
       return nodes.find(n => n.key === key)
     },
-    edges,
+
     addEdge(node1Key, node2Key) {
       const node1 = this.getNode(node1Key)
       const node2 = this.getNode(node2Key)
@@ -36,6 +41,7 @@ function createGraph(directed = false) {
 
       edges.push(`${node1Key}${node2Key}`)
     },
+
     print() {
       return nodes
         .map(({ children, key }) => {
@@ -48,6 +54,54 @@ function createGraph(directed = false) {
           return result
         })
         .join('\n')
+    },
+
+    bfs(startingNodeKey, visitFn) {
+      const startingNode = this.getNode(startingNodeKey)
+      const visitedHash = this.nodes.reduce((acc, cur) => {
+        acc[cur] = false
+        return acc
+      }, {})
+      const queue = createQueue()
+      queue.enqueue(startingNode)
+
+      while (!queue.isEmpty()) {
+        const currentNode = queue.dequeue()
+
+        if (!visitedHash[currentNode.key]) {
+          visitFn(currentNode)
+          visitedHash[currentNode.key] = true
+        }
+
+        currentNode.children.forEach(node => {
+          if (!visitedHash[node.key]) {
+            queue.enqueue(node)
+          }
+        })
+      }
+    },
+
+    dfs(startingNodeKey, visitFn) {
+      const startingNode = this.getNode(startingNodeKey)
+      const visitedHash = this.nodes.reduce((acc, cur) => {
+        acc[cur] = false
+        return acc
+      }, {})
+
+      function explore(node) {
+        if (visitedHash[node.key]) {
+          return
+        }
+
+        visitFn(node)
+        visitedHash[node.key] = true
+
+        node.children.forEach(child => {
+          explore(child)
+        })
+      }
+
+      explore(startingNode)
     }
   }
 }

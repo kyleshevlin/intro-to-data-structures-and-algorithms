@@ -161,4 +161,48 @@ e`
       )
     })
   })
+
+  test('bfs', () => {
+    const nodes = ['a', 'b', 'c', 'd', 'e']
+    nodes.forEach(node => {
+      graph.addNode(node)
+    })
+
+    const edges = [['a', 'b'], ['a', 'c'], ['a', 'e'], ['b', 'd'], ['c', 'd']]
+    edges.forEach(edge => {
+      graph.addEdge(...edge)
+    })
+
+    let result = ''
+
+    function visit(node) {
+      result += result.length === 0 ? node.key : ` => ${node.key}`
+    }
+
+    graph.bfs('a', visit)
+
+    expect(result).toEqual('a => b => c => e => d')
+  })
+
+  test('dfs', () => {
+    const nodes = ['a', 'b', 'c', 'd', 'e']
+    nodes.forEach(node => {
+      graph.addNode(node)
+    })
+
+    const edges = [['a', 'b'], ['a', 'c'], ['a', 'e'], ['b', 'd'], ['c', 'd']]
+    edges.forEach(edge => {
+      graph.addEdge(...edge)
+    })
+
+    let result = ''
+
+    function visit(node) {
+      result += result.length === 0 ? node.key : ` => ${node.key}`
+    }
+
+    graph.dfs('a', visit)
+
+    expect(result).toEqual('a => b => d => c => e')
+  })
 })
