@@ -13,3 +13,5 @@ Next, our peek method receives a small change. Since we dequeue from the high pr
 Next, our length method is just the addition of the two queues lengths.
 
 Lastly, our isEmpty method is the conjunction of the two queues isEmpty property.
+
+Now that we've built our priority queue, let's try it out. Let's imagine your manager has given you a few tasks. A fix here, a bug there, a new feature to build. Now, seemingly out of nowhere, a new bug has been added to your queue that's high priority. Company is losing money, systems are failing. We can insert that new bug in as high priority, and now if we peek() it's the next thing to come out of our queue, we have to get it done before we can continue with our other tasks.
