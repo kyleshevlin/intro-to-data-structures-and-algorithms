@@ -62,7 +62,7 @@ function createGraph(directed = false) {
       const startingNode = this.getNode(
         startingNodeKey
       )
-      const visitedHash = this.nodes.reduce(
+      const visitedHash = nodes.reduce(
         (acc, cur) => {
           acc[cur.key] = false
           return acc
@@ -92,9 +92,9 @@ function createGraph(directed = false) {
       const startingNode = this.getNode(
         startingNodeKey
       )
-      const visitedHash = this.nodes.reduce(
+      const visitedHash = nodes.reduce(
         (acc, cur) => {
-          acc[cur] = false
+          acc[cur.key] = false
           return acc
         },
         {}
