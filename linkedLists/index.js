@@ -8,62 +8,60 @@ function createNode(value) {
 function createLinkedList() {
   return {
     head: null,
-    size: 0,
+    tail: null,
+    length: 0,
 
-    add(value) {
+    push(value) {
       const node = createNode(value)
 
       if (this.head === null) {
         this.head = node
-        this.size++
+        this.tail = node
+        this.length++
         return node
       }
 
-      let current = this.head
-      while (current.next) {
-        current = current.next
-      }
-
-      current.next = node
-      this.size++
+      this.tail.next = node
+      this.tail = node
+      this.length++
 
       return node
     },
 
-    insertAt(value, index) {
-      if (index > 0 && index > this.size) {
+    pop() {
+      if (this.isEmpty()) {
         return null
       }
 
-      const node = createNode(value)
+      const node = this.tail
 
-      if (index === 0) {
-        node.next = this.head
-        this.head = node
-        this.size++
-
+      if (this.head === this.tail) {
+        this.head = null
+        this.tail = null
+        this.length--
         return node
       }
 
       let current = this.head
-      let previous
-      let i = 0
+      let penultimate
+      while (current) {
+        if (current.next === this.tail) {
+          penultimate = current
+          break
+        }
 
-      while (i < index) {
-        i++
-        previous = current
         current = current.next
       }
 
-      previous.next = node
-      node.next = current
-      this.size++
+      penultimate.next = null
+      this.tail = penultimate
+      this.length--
 
       return node
     },
 
     get(index) {
-      if (index > 0 && index > this.size) {
+      if (index < 0 || index > this.length) {
         return null
       }
 
@@ -73,7 +71,6 @@ function createLinkedList() {
 
       let current = this.head
       let i = 0
-
       while (i < index) {
         i++
         current = current.next
@@ -83,7 +80,7 @@ function createLinkedList() {
     },
 
     delete(index) {
-      if (index > 0 && index > this.size) {
+      if (index < 0 || index > this.length) {
         return null
       }
 
@@ -91,7 +88,7 @@ function createLinkedList() {
         const deleted = this.head
 
         this.head = this.head.next
-        this.size--
+        this.length--
 
         return deleted
       }
@@ -108,20 +105,20 @@ function createLinkedList() {
 
       const deleted = current
       previous.next = current.next
-      this.size--
+      this.length--
 
       return deleted
     },
 
     isEmpty() {
-      return this.size === 0
+      return this.length === 0
     },
 
     print() {
-      let values = []
+      const values = []
       let current = this.head
 
-      while (current && current.value) {
+      while (current) {
         values.push(current.value)
         current = current.next
       }

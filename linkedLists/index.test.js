@@ -22,46 +22,63 @@ describe('Linked List', () => {
     expect(linkedList).toBeDefined()
   })
 
-  test('size', () => {
-    expect(linkedList.size).toEqual(0)
+  test('length', () => {
+    expect(linkedList.length).toEqual(0)
   })
 
   test('head', () => {
     expect(linkedList.head).toBeNull()
 
-    const a = linkedList.add('a')
+    const a = linkedList.push('a')
     expect(linkedList.head).toEqual(a)
   })
 
-  test('add', () => {
-    const a = linkedList.add('a')
-    const b = linkedList.add('b')
+  test('tail', () => {
+    expect(linkedList.tail).toBeNull()
 
-    expect(linkedList.head.next).toEqual(b)
-    expect(linkedList.size).toEqual(2)
+    const a = linkedList.push('a')
+    expect(linkedList.tail).toEqual(a)
   })
 
-  test('insertAt', () => {
+  test('push', () => {
+    const a = linkedList.push('a')
+    expect(linkedList.head.value).toEqual('a')
+    expect(linkedList.tail.value).toEqual('a')
+    expect(linkedList.length).toEqual(1)
+
+    const b = linkedList.push('b')
+
+    expect(linkedList.head.next).toEqual(b)
+    expect(linkedList.tail).toEqual(b)
+    expect(linkedList.length).toEqual(2)
+  })
+
+  test('pop', () => {
+    // empty list
+    expect(linkedList.pop()).toEqual(null)
+    expect(linkedList.length).toEqual(0)
+
+    // List of length 1
+    linkedList.push(1)
+    expect(linkedList.length).toEqual(1)
+    const node = linkedList.pop()
+    expect(node.value).toEqual(1)
+    expect(linkedList.head).toEqual(null)
+    expect(linkedList.tail).toEqual(null)
+    expect(linkedList.length).toEqual(0)
+
+    // List of length < 1
     const values = ['a', 'b', 'c', 'd', 'e']
-    const [a, b, ...otherNodes] = values.map(val => linkedList.add(val))
+    const nodes = values.map(val => linkedList.push(val))
 
-    const badIndex = linkedList.insertAt('f', 7)
-
-    expect(badIndex).toBeNull()
-
-    const f = linkedList.insertAt('f', 0)
-    expect(f.next).toEqual(a)
-    expect(linkedList.head).toEqual(f)
-    expect(linkedList.size).toEqual(6)
-
-    const g = linkedList.insertAt('g', 2)
-    expect(g.next).toEqual(b)
-    expect(linkedList.size).toEqual(7)
+    expect(linkedList.pop().value).toEqual('e')
+    expect(linkedList.tail.value).toEqual('d')
+    expect(linkedList.length).toEqual(4)
   })
 
   test('get', () => {
     const values = ['a', 'b', 'c', 'd', 'e']
-    const nodes = values.map(val => linkedList.add(val))
+    const nodes = values.map(val => linkedList.push(val))
 
     const badIndex = linkedList.get(7)
     expect(badIndex).toBeNull()
@@ -75,7 +92,7 @@ describe('Linked List', () => {
 
   test('delete', () => {
     const values = ['a', 'b', 'c', 'd', 'e']
-    const nodes = values.map(val => linkedList.add(val))
+    const nodes = values.map(val => linkedList.push(val))
 
     const badIndex = linkedList.delete(7)
     expect(badIndex).toBeNull()
@@ -86,20 +103,20 @@ describe('Linked List', () => {
     const d = linkedList.delete(2)
 
     expect(d).toEqual(nodes[3])
-    expect(linkedList.size).toEqual(3)
+    expect(linkedList.length).toEqual(3)
     expect(linkedList.get(2)).toEqual(nodes[4])
   })
 
   test('isEmpty', () => {
     expect(linkedList.isEmpty()).toBe(true)
-    linkedList.add('a')
+    linkedList.push('a')
     expect(linkedList.isEmpty()).toBe(false)
   })
 
   test('print', () => {
     const values = ['a', 'b', 'c', 'd', 'e']
     values.forEach(val => {
-      linkedList.add(val)
+      linkedList.push(val)
     })
 
     expect(linkedList.print()).toEqual('a => b => c => d => e')
