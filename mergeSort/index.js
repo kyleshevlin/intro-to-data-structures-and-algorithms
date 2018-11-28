@@ -38,4 +38,8 @@ function mergeSort(array) {
   return merge(mergeSort(left), mergeSort(right))
 }
 
+let numbers = [10, 5, 6, 3, 2, 8, 9, 4, 7, 1]
+
+mergeSort(numbers)
+
 exports.mergeSort = mergeSort

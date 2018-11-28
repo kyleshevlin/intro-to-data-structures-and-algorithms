@@ -118,5 +118,24 @@ function createGraph(directed = false) {
   }
 }
 
+const graph = createGraph(true)
+
+graph.addNode('Kyle')
+graph.addNode('Anna')
+graph.addNode('Krios')
+graph.addNode('Tali')
+
+
+graph.addEdge('Kyle', 'Anna')
+graph.addEdge('Anna', 'Kyle')
+graph.addEdge('Kyle', 'Krios')
+graph.addEdge('Kyle', 'Tali')
+graph.addEdge('Anna', 'Krios')
+graph.addEdge('Anna', 'Tali')
+graph.addEdge('Krios', 'Anna')
+graph.addEdge('Tali', 'Kyle')
+
+console.log(graph.print())
+
 exports.createNode = createNode
 exports.createGraph = createGraph
