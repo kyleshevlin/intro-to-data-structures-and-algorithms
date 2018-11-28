@@ -2,7 +2,7 @@
   "name": "intro-to-data-structures-and-algorithms",
   "version": "1.0.0",
   "description": "An egghead course to introduce data structures and algorithms in JavaScript",
-  "main": "index.js",
+  "main": "queues.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
