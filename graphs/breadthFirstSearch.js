@@ -1,4 +1,4 @@
-const { createQueue } = require('../queues')
+const { createQueue } = require('../queues/index.js')
 
 function createNode(key) {
   const children = []
