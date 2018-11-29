@@ -136,7 +136,12 @@ nodes.forEach(node => {
 })
 
 edges.forEach((...nodes) => {
-  graph.addEdge(...nodes)
+  // graph.addEdge(...nodes)
+  graph.addEdge(nodes[0][0], nodes[0][1])
+})
+
+graph.dfs('a', node => {
+  console.log(node.key)
 })
 
 exports.createNode = createNode
