@@ -26,4 +26,16 @@ function createStack() {
   }
 }
 
+const lowerBodyStack = createStack()
+
+lowerBodyStack.push('underwear')
+lowerBodyStack.push('socks')
+lowerBodyStack.push('pants')
+lowerBodyStack.push('shoes')
+
+lowerBodyStack.pop()
+lowerBodyStack.pop()
+console.log(lowerBodyStack.peek())
+console.log(lowerBodyStack.length)
+
 exports.createStack = createStack

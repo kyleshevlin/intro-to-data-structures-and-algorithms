@@ -119,23 +119,30 @@ function createGraph(directed = false) {
 }
 
 const graph = createGraph(true)
+const nodes = ['a', 'b', 'c', 'd', 'e', 'f']
+const edges = [
+  ['a', 'b'],
+  ['a', 'e'],
+  ['a', 'f'],
+  ['b', 'd'],
+  ['b', 'e'],
+  ['c', 'b'],
+  ['d', 'c'],
+  ['d', 'e'],
+]
 
-graph.addNode('Kyle')
-graph.addNode('Anna')
-graph.addNode('Krios')
-graph.addNode('Tali')
+nodes.forEach(node => {
+  graph.addNode(node)
+})
 
+edges.forEach((...nodes) => {
+  // graph.addEdge(...nodes)
+  graph.addEdge(nodes[0][0], nodes[0][1])
+})
 
-graph.addEdge('Kyle', 'Anna')
-graph.addEdge('Anna', 'Kyle')
-graph.addEdge('Kyle', 'Krios')
-graph.addEdge('Kyle', 'Tali')
-graph.addEdge('Anna', 'Krios')
-graph.addEdge('Anna', 'Tali')
-graph.addEdge('Krios', 'Anna')
-graph.addEdge('Tali', 'Kyle')
-
-console.log(graph.print())
+graph.dfs('a', node => {
+  console.log(node.key)
+})
 
 exports.createNode = createNode
 exports.createGraph = createGraph

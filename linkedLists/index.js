@@ -128,5 +128,13 @@ function createLinkedList() {
   }
 }
 
+const list = createLinkedList()
+const values = ['a', 'b', 'c', 'd', 'e']
+const nodes = values.map(val => list.push(val))
+
+list.pop()
+console.log(list.delete(1))
+console.log(list.print())
+
 exports.createNode = createNode
 exports.createLinkedList = createLinkedList

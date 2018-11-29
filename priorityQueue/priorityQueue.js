@@ -1,4 +1,4 @@
-const { createQueue } = require('./index')
+const { createQueue } = require('../queues/index')
 
 function createPriorityQueue() {
   const highPriorityQueue = createQueue()
@@ -31,5 +31,16 @@ function createPriorityQueue() {
     }
   }
 }
+
+const q = createPriorityQueue()
+
+q.enqueue('A fix here')
+q.enqueue('A bug there')
+q.enqueue('A new feature')
+
+q.dequeue()
+q.enqueue('Emergency task!', true)
+console.log(q.dequeue())
+console.log(q.peek())
 
 exports.createPriorityQueue = createPriorityQueue

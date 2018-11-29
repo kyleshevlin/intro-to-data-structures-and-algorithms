@@ -1,0 +1,23 @@
+{
+  "name": "intro-to-data-structures-and-algorithms",
+  "version": "1.0.0",
+  "description": "An egghead course to introduce data structures and algorithms in JavaScript",
+  "main": "queues.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kyleshevlin/intro-to-data-structures-and-algorithms.git"
+  },
+  "author": "Kyle Shevlin <kyle.a.shevlin@gmail.com> (http://kyleshevlin.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kyleshevlin/intro-to-data-structures-and-algorithms/issues"
+  },
+  "homepage": "https://github.com/kyleshevlin/intro-to-data-structures-and-algorithms#readme",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}

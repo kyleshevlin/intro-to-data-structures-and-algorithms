@@ -20,4 +20,8 @@ function quickSort(array) {
   return [...quickSort(left), pivot, ...quickSort(right)]
 }
 
+let numbers = [10, 5, 6, 3, 2, 8, 9, 4, 7, 1]
+
+quickSort(numbers)
+
 exports.quickSort = quickSort

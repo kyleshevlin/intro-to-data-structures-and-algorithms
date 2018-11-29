@@ -101,6 +101,22 @@ function createBinaryTree(rootKey) {
   }
 }
 
+const tree = createBinaryTree('a')
+const b = tree.root.addLeft('b')
+const c = tree.root.addRight('c')
+const d = b.addLeft('d')
+const e = b.addRight('e')
+const f = c.addLeft('f')
+const g = c.addRight('g')
+const h = d.addLeft('h')
+const i = d.addRight('i')
+
+console.log("IN_ORDER: ", tree.print())
+
+console.log("PRE_ORDER: ", tree.print('PRE_ORDER'))
+
+console.log("POST_ORDER: ", tree.print('POST_ORDER'))
+
 exports.createBinaryNode = createBinaryNode
 exports.createBinaryTree = createBinaryTree
 exports.createNode = createNode
