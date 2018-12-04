@@ -90,21 +90,43 @@ describe('Linked List', () => {
     expect(atIndexThree).toEqual(nodes[3])
   })
 
-  test('delete', () => {
+  describe('delete', () => {
     const values = ['a', 'b', 'c', 'd', 'e']
-    const nodes = values.map(val => linkedList.push(val))
+    let nodes
 
-    const badIndex = linkedList.delete(7)
-    expect(badIndex).toBeNull()
+    beforeEach(() => {
+      linkedList = createLinkedList()
+      nodes = values.map(val => linkedList.push(val))
+    })
 
-    const head = linkedList.delete(0)
-    expect(head).toEqual(nodes[0])
+    test('bad index', () => {
+      // the length of the list is the first index outside of
+      // the acceptable range of values
+      const index = values.length
+      const badIndex = linkedList.delete(index)
+      expect(badIndex).toBeNull()
+    })
 
-    const d = linkedList.delete(2)
+    test('head', () => {
+      const head = linkedList.delete(0)
+      expect(head).toEqual(nodes[0])
+    })
 
-    expect(d).toEqual(nodes[3])
-    expect(linkedList.length).toEqual(3)
-    expect(linkedList.get(2)).toEqual(nodes[4])
+    test('middlish index', () => {
+      const index = 2
+      const c = linkedList.delete(index)
+
+      expect(c).toEqual(nodes[index])
+      expect(linkedList.length).toEqual(values.length - 1)
+    })
+
+    test('tail', () => {
+      const tail = linkedList.delete(values.length - 1)
+      expect(tail).toEqual(nodes[nodes.length - 1])
+      expect(linkedList.tail).not.toEqual(tail)
+      expect(linkedList.tail).toEqual(nodes[nodes.length - 2])
+      expect(linkedList.tail.next).toBeNull()
+    })
   })
 
   test('isEmpty', () => {

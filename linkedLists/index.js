@@ -61,7 +61,7 @@ function createLinkedList() {
     },
 
     get(index) {
-      if (index < 0 || index > this.length) {
+      if (index < 0 || index > this.length - 1) {
         return null
       }
 
@@ -80,7 +80,7 @@ function createLinkedList() {
     },
 
     delete(index) {
-      if (index < 0 || index > this.length) {
+      if (index < 0 || index > this.length - 1) {
         return null
       }
 
@@ -105,6 +105,11 @@ function createLinkedList() {
 
       const deleted = current
       previous.next = current.next
+
+      if (previous.next === null) {
+        this.tail = previous
+      }
+
       this.length--
 
       return deleted
