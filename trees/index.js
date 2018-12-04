@@ -24,27 +24,23 @@ function createTree(rootKey) {
         visitFn(node, depth)
 
         if (node.children.length) {
-            node.children.forEach(n => traverse(n, visitFn, depth + 1))
+          node.children.forEach(n => traverse(n, visitFn, depth + 1))
         }
       }
 
       function addKeyToResult(node, depth) {
-        result += 
+        result +=
           result.length === 0
             ? node.key
-          : `\n${' '.repeat(depth * 2)}${
-              node.key
-            }`
+            : `\n${' '.repeat(depth * 2)}${node.key}`
       }
 
-      traverse(root, addKeyToResult, 1)
+      traverse(root, addKeyToResult, 0)
 
       return result
     }
   }
 }
-
-
 
 const dom = createTree('html')
 const head = dom.root.addChild('head')

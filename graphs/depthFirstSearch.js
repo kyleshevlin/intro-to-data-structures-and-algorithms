@@ -48,9 +48,7 @@ function createGraph(directed = false) {
           let result = `${key}`
 
           if (children.length) {
-            result += ` => ${children
-              .map(node => node.key)
-              .join(' ')}`
+            result += ` => ${children.map(node => node.key).join(' ')}`
           }
 
           return result
@@ -59,16 +57,11 @@ function createGraph(directed = false) {
     },
 
     bfs(startingNodeKey, visitFn) {
-      const startingNode = this.getNode(
-        startingNodeKey
-      )
-      const visitedHash = nodes.reduce(
-        (acc, cur) => {
-          acc[cur.key] = false
-          return acc
-        },
-        {}
-      )
+      const startingNode = this.getNode(startingNodeKey)
+      const visitedHash = nodes.reduce((acc, cur) => {
+        acc[cur.key] = false
+        return acc
+      }, {})
       const queue = createQueue()
       queue.enqueue(startingNode)
 
@@ -89,16 +82,11 @@ function createGraph(directed = false) {
     },
 
     dfs(startingNodeKey, visitFn) {
-      const startingNode = this.getNode(
-        startingNodeKey
-      )
-      const visitedHash = nodes.reduce(
-        (acc, cur) => {
-          acc[cur.key] = false
-          return acc
-        },
-        {}
-      )
+      const startingNode = this.getNode(startingNodeKey)
+      const visitedHash = nodes.reduce((acc, cur) => {
+        acc[cur.key] = false
+        return acc
+      }, {})
 
       function explore(node) {
         if (visitedHash[node.key]) {
@@ -128,16 +116,15 @@ const edges = [
   ['b', 'e'],
   ['c', 'b'],
   ['d', 'c'],
-  ['d', 'e'],
+  ['d', 'e']
 ]
 
 nodes.forEach(node => {
   graph.addNode(node)
 })
 
-edges.forEach((...nodes) => {
-  // graph.addEdge(...nodes)
-  graph.addEdge(nodes[0][0], nodes[0][1])
+edges.forEach(nodes => {
+  graph.addEdge(...nodes)
 })
 
 graph.dfs('a', node => {
