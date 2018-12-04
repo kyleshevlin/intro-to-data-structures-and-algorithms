@@ -135,9 +135,8 @@ nodes.forEach(node => {
   graph.addNode(node)
 })
 
-edges.forEach((...nodes) => {
-  // graph.addEdge(...nodes)
-  graph.addEdge(nodes[0][0], nodes[0][1])
+edges.forEach((nodes) => {
+  graph.addEdge(...nodes)
 })
 
 graph.bfs('a', node => {
