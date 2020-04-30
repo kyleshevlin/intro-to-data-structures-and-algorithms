@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/kyleshevlin/intro-to-data-structures-and-algorithms#readme",
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^25.5.2"
   }
 }
