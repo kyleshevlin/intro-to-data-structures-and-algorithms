@@ -4,7 +4,7 @@
 
 My introductory course to data structures and algorithms in JavaScript for [egghead](https://egghead.io).
 
-This course covers:
+This course covers the following topics:
 
 * Queues
 * Stacks
