@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kyleshevlin/intro-to-data-structures-and-algorithms#readme",
   "devDependencies": {
+    "jasmine": "2.4",
     "jest": "^25.5.2"
   }
 }
